@@ -363,6 +363,20 @@
     - cm
     - full_cluster
 
+- name: Configure Cloudera Manager AutoTLS
+  hosts: cloudera_manager, cluster
+  gather_facts: no
+  any_errors_fatal: true
+  become: yes
+  roles:
+    - role: cloudera_manager/autotls
+      when: >
+        (tls | default(False) or manual_tls_cert_distribution | default(False))
+        and autotls | default(False)
+  tags:
+    - cm
+    - full_cluster
+
 - name: Configure Cloudera Manager Password
   hosts: cloudera_manager
   gather_facts: no
