@@ -369,7 +369,7 @@
   any_errors_fatal: true
   become: yes
   roles:
-    - role: cloudera_manager/autotls
+    - role: cloudera.cluster.cloudera_manager.autotls
       when: >
         (tls | default(False) or manual_tls_cert_distribution | default(False))
         and autotls | default(False)
@@ -402,15 +402,6 @@
 
 # ENDBLOCK # Cloudera Manager Password
 # STARTBLOCK # Prepare Security
-# Insert AutoTLS with tag
-- name: Enable Auto-TLS
-  hosts: cloudera_manager
-  gather_facts: no
-  roles:
-    - cloudera.cluster.cloudera_manager.autotls
-  tags:
-    - autotls
-    - never
 
 - name: Install pre-requisite packages for Kerberos
   hosts: cloudera_manager, cluster
