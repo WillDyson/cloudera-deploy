@@ -369,11 +369,16 @@
   any_errors_fatal: true
   become: yes
   roles:
+    - role: cloudera.cluster.cloudera_manager.wait_for_heartbeat
+      when: >
+        (tls | default(False) or manual_tls_cert_distribution | default(False))
+        and autotls | default(False)
     - role: cloudera.cluster.cloudera_manager.autotls
       when: >
         (tls | default(False) or manual_tls_cert_distribution | default(False))
         and autotls | default(False)
   tags:
+    - autotls
     - cm
     - full_cluster
 
