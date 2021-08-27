@@ -490,7 +490,7 @@
 
 - name: Setup KTS HA
   hosts: localhost
-  become: yes
+  become: no
   gather_facts: no
   roles:
     - role: cloudera.cluster.deployment.services.kts_high_availability
@@ -504,7 +504,7 @@
 - name: Handle KMS services
   hosts: localhost
   gather_facts: no
-  become: yes
+  become: no
   roles:
     - role: cloudera.cluster.deployment.services.kms
       when: "'kms_servers' in groups"
